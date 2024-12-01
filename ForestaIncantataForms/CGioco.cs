@@ -13,6 +13,7 @@ namespace AvventuraForestaIncantataVerifica
         bool        turnoP1,
                     vincitore;
         string?     messaggioRiportato;
+        int[]       posizioni;
         CGiocatore  p1,
                     p2;
         CDado       dado;
@@ -22,6 +23,8 @@ namespace AvventuraForestaIncantataVerifica
             turnoP1 = true;
             vincitore = false;
             messaggioRiportato = "Inizio Gioco!";
+            posizioni = new int[2];
+            Array.Fill(posizioni, 0); // entrambi i giocatori iniziano a 0
             CCreatoreMappa mappa = new CCreatoreMappa();
             p1 = new CGiocatore(mappa.Mappa);
             p2 = new CGiocatore(mappa.Mappa);
@@ -39,10 +42,12 @@ namespace AvventuraForestaIncantataVerifica
             if (turnoP1) 
             {
                 toAdd = p1.Avanza(dado.Lancia());
+                posizioni[0] = p1.GetPos();
                 
             } else
             {
                 toAdd = p2.Avanza(dado.Lancia());
+                posizioni[1] = p2.GetPos();
             }
 
             if (toAdd != null)
@@ -50,6 +55,11 @@ namespace AvventuraForestaIncantataVerifica
 
             turnoP1 = !turnoP1;
             return !vincitore; // true indica che può continuare, metto vincitore a true in caso di vincita perché è più facile da gestire
+        }
+
+        public int[] GetPlayers() 
+        {
+            return posizioni;
         }
 
         public string GetRisultato() 

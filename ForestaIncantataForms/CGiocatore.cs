@@ -54,8 +54,9 @@ namespace AvventuraForestaIncantataVerifica
                 string bonusString = string.Empty;
 
                 mappaIndex += n;
-                if (mappaIndex >= mappa.Length) 
+                if (mappaIndex >= mappa.Length - 1) 
                 {
+                    mappaIndex = mappa.Length - 1;
                     OnWin?.Invoke($"Giocatore {pId} ha vinto!");
                     return null;
                 }
@@ -84,6 +85,11 @@ namespace AvventuraForestaIncantataVerifica
                 canThrow = !canThrow;
                 return $"Giocatore {pId} non può tirare questo turno.";
             }
+        }
+
+        public int GetPos() 
+        {
+            return mappaIndex;
         }
 
         private void saltaTurno() 

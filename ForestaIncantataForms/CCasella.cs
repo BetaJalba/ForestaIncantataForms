@@ -9,8 +9,10 @@ namespace AvventuraForestaIncantataVerifica
     public class CCasella
     {
         static int count = 0;
+        static string path = @"../../caselle.jpg";
 
-        int                                             id;
+        int                                             id,
+                                                        offset;
         string                                          nome;
         public event EventHandler<CasellaEventArgs>     OnEffetto;
         
@@ -22,13 +24,15 @@ namespace AvventuraForestaIncantataVerifica
         public CCasella() 
         {
             id = count;
+            offset = 0;
             count++;
             nome = "Casella Normale";
         }
 
-        protected CCasella(string nome)
+        protected CCasella(string nome, int offset)
         {
             id = count;
+            this.offset = offset;
             count++;
             this.nome = nome;
         }
@@ -44,11 +48,17 @@ namespace AvventuraForestaIncantataVerifica
         {
             return 0;
         }
+
+        public Bitmap getImage() 
+        {
+            Bitmap image = new Bitmap(path);
+            return image.Clone(new Rectangle(offset * 100, 0, 100, 100), image.PixelFormat);
+        }
     }
 
     public class CCasellaMagica : CCasella 
     {
-        public CCasellaMagica() : base("Casella Sorgente Magica") 
+        public CCasellaMagica() : base("Casella Sorgente Magica", 1) 
         {
 
         }
@@ -61,7 +71,7 @@ namespace AvventuraForestaIncantataVerifica
 
     public abstract class CCasellaTrappola : CCasella 
     {
-        public CCasellaTrappola(string nome) : base($"Casella Trappola: {nome}") 
+        public CCasellaTrappola(string nome, int offset) : base($"Casella Trappola: {nome}", offset) 
         {
 
         }
@@ -69,7 +79,7 @@ namespace AvventuraForestaIncantataVerifica
 
     public class CCasellaRagnatela : CCasellaTrappola  
     {
-        public CCasellaRagnatela() : base("RagnatelaGigante") 
+        public CCasellaRagnatela() : base("RagnatelaGigante", 2) 
         {
 
         }
@@ -83,7 +93,7 @@ namespace AvventuraForestaIncantataVerifica
 
     public class CCasellaPalude : CCasellaTrappola 
     {
-        public CCasellaPalude() : base("Palude Viscosa") 
+        public CCasellaPalude() : base("Palude Viscosa", 3) 
         {
 
         }
@@ -96,7 +106,7 @@ namespace AvventuraForestaIncantataVerifica
 
     public class CCasellaAmico : CCasella 
     {
-        public CCasellaAmico() : base("Casella Amico della Foresta") 
+        public CCasellaAmico() : base("Casella Amico della Foresta", 4) 
         {
 
         }
@@ -109,7 +119,7 @@ namespace AvventuraForestaIncantataVerifica
 
     public class CCasellaAlbero : CCasella
     {
-        public CCasellaAlbero() : base("Casella Albero del Destino") 
+        public CCasellaAlbero() : base("Casella Albero del Destino", 5) 
         {
 
         }
