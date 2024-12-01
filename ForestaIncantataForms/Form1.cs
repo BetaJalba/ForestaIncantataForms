@@ -105,7 +105,8 @@ namespace ForestaIncantataForms
                 player.Dispose();
         }
 
-        private void fillNumbers(DataGridView dg, int xStart, int yStart, int width, int height, int count)
+        // riempie i lati di una matrice sempre più piccola fino a quando la completa
+        private void fillNumbers(DataGridView dg, int xStart, int yStart, int width, int height, int count) 
         {
             if (width - xStart < 1 || height - yStart < 1)
                 return;
